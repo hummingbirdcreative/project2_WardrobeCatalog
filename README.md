@@ -15,8 +15,8 @@
 
 
 # Screenshots
-![ScreenShot](/Images/ScreenWModal.png)
-![ScreenShot](/Images/HomeScreen.png)
+![ScreenShot](/Images/project2homePageWireFrame.png)
+![ScreenShot](/Images/project2showPageWireFrame.png)
 
 
 # Getting Started
