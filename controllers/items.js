@@ -29,6 +29,12 @@ router.delete('/items/:id' , (req,res) => {
 });
 
 //Update Route
+router.put('/items/:id', (req,res) => {
+    Item.findByIdAndUpdate(req.params.id, req.body, (err, updatedItem) => {
+        res.redirect('/items');
+    });
+});
+
 //Create Route
 router.post('/items' , (req,res) => {
     Item.create(req.body, (err, createdItem) => {
@@ -37,6 +43,14 @@ router.post('/items' , (req,res) => {
   });
 
 //Edit Route
+router.get('/items/:id/edit' , (req,res) => {
+    Item.findById(req.params.id, (err, foundItem)=> {
+          res.render('edit.ejs' , {
+              foundItem
+          });
+      });
+  });
+
 //Show Route
 router.get("/items/:id", (req,res) => {
     Item.findById(req.params.id, (err, foundItem) => {

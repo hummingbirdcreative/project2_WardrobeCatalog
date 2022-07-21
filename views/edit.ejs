@@ -1,3 +1,23 @@
-<%- include('../partials/head') %>
+<h1><%= foundItem.title %></h1>
+<form action="/items/<%=foundItem._id%>?_method=PUT" method="POST">
+    <label for="name">Name</label>
+    <input type="text" name="name" id="name" value="<%= foundItem.name %>">>
 
-<%- include('../partials/footer') %>
+    <label for="brand">Brand</label>
+    <input type="text" name="brand" id="brand" value="<%= foundItem.brand %>">
+
+    <label for="type">Item Type</label>
+    <input type="text" name="type" id="type" value="<%= foundItem.type %>">>
+
+    <label for="description">Description</label>
+    <input type="text" name="description" id="description" value="<%= foundItem.description %>">>
+
+    <label for="img">Image</label>
+    <input type="text" name="img" id="img" value="<%= foundItem.img %>">>
+
+    <label for="notes">Notes</label>
+    <input type="text" name="notes" id="notes" value="<%= foundItem.notes %>">>
+    
+    <input type="submit" value="Update Entry"/> 
+    <a href = '/items'>Back</a>
+</form>
