@@ -1,9 +1,9 @@
 # Wardrobe Catalog
-*A fullstack web application that allows user to catalog their wardrobe*
+*A fullstack web application that allows users to catalog their wardrobe*
 
 # Technologies Used
 * Node.js
-* Monngoose
+* Mongoose
 * Express
 * EJS
 
