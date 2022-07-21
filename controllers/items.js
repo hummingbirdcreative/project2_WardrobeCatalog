@@ -24,6 +24,12 @@ router.get('/items/new', (req, res) => {
 //Delete Route
 //Update Route
 //Create Route
+router.post('/items' , (req,res) => {
+    Item.create(req.body, (err, createdLog) => {
+        res.redirect('/items')
+    });
+  });
+  
 //Edit Route
 //Show Route
 

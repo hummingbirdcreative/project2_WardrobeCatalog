@@ -1,3 +1,10 @@
-<%- include('../partials/head') %>
-
-<%- include('../partials/footer') %>
+<nav>
+    <a href="/items/new">Create New Item</a>
+</nav>
+<ul>
+    
+    <% allItems.forEach(item => { %>
+        <li>
+            <a href="/items/<%=item._id%>"><%= item.img %></a>
+        </li>
+    <% }) %>
