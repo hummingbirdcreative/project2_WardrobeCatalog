@@ -1,3 +1,9 @@
-<%- include('../partials/head') %>
-
-<%- include('../partials/footer') %>
+<ul>
+    <li><img src="<%= foundItem.img %>" alt="picture"></li>
+    <li>name: <%= foundItem.name %></li>
+    <li>brand: <%= foundItem.brand %></li>
+    <li>type: <%= foundItem.type %></li>
+    <li>description: <%= foundItem.description %></li>
+    <li>notes: <%= foundItem.notes %></li>
+</ul>
+<a href="/items">Back</a>

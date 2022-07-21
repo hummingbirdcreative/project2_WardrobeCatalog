@@ -32,6 +32,13 @@ router.post('/items' , (req,res) => {
 
 //Edit Route
 //Show Route
+router.get("/items/:id", (req,res) => {
+    Item.findById(req.params.id, (err, foundItem) => {
+        res.render('show.ejs', {
+            foundItem
+        });
+    });
+});
 
 //Export Router Object
 module.exports = router;
