@@ -22,6 +22,12 @@ router.get('/items/new', (req, res) => {
 });
 
 //Delete Route
+router.delete('/items/:id' , (req,res) => {
+    Item.findByIdAndRemove(req.params.id, (err, data) => {
+          res.redirect('/items')
+    });
+});
+
 //Update Route
 //Create Route
 router.post('/items' , (req,res) => {
