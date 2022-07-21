@@ -8,13 +8,13 @@ const router = require('express').Router();
 //Define Routes
 //INDUCES
 //Index Route
-// router.get('/', (req, res) => {
-//     Item.find({}, (error, logs) => {
-//         res.render('/index.ejs', {
-//             allItems
-//         });
-//     });
-// });
+router.get('/items', (req, res) => {
+    Item.find({}, (err, allItems) => {
+        res.render('index.ejs', {
+            allItems
+        });
+    });
+});
 
 //New Route
 router.get('/items/new', (req, res) => {
@@ -25,11 +25,11 @@ router.get('/items/new', (req, res) => {
 //Update Route
 //Create Route
 router.post('/items' , (req,res) => {
-    Item.create(req.body, (err, createdLog) => {
+    Item.create(req.body, (err, createdItem) => {
         res.redirect('/items')
     });
   });
-  
+
 //Edit Route
 //Show Route
 

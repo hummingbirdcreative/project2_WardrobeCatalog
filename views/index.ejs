@@ -1,10 +1,18 @@
 <nav>
     <a href="/items/new">Create New Item</a>
 </nav>
-<ul>
+<div class="container">
+    
+    <ul>
     
     <% allItems.forEach(item => { %>
         <li>
-            <a href="/items/<%=item._id%>"><%= item.img %></a>
+            <a href="/items/<%= item._id %>">
+                <img src="<%= item.img%>" alt="picture">
+            </a>
         </li>
     <% }) %>
+
+    </ul>
+    
+</div>
