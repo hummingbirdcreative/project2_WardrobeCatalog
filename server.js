@@ -28,8 +28,8 @@ app.use(morgan('dev'));
 
 //Mount Routes
 app.get('/', (req, res) => {
-    res.send('<h1>Hola</h1>')
-    //res.redirect('/items')
+    //res.send('<h1>Hola</h1>')
+    res.redirect('/items')
 });
 
 app.use('/', itemsRouter);
