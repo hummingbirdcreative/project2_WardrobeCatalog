@@ -30,4 +30,10 @@ usersRouter.post('/login', (req, res) => {
     })
 });
 
+
+// signup GET route - renders the signup form
+usersRouter.get('/signup', (req, res) => {
+    res.render('./users/signup.ejs', { err: '' });
+});
+
 module.exports = usersRouter;
