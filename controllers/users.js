@@ -36,4 +36,21 @@ usersRouter.get('/signup', (req, res) => {
     res.render('./users/signup.ejs', { err: '' });
 });
 
+// signup POST route - create a new user
+usersRouter.post('/signup', (req, res) => {
+    if (req.body.password.length < 8) {
+        return res.render('./users/signup.ejs', { err: 'Password must be at least 8 characters long' });
+    }
+    const hash = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(SALT_ROUNDS));
+    req.body.password = hash;
+    User.create(req.body, (error, user) => {
+        if (error) {
+            res.render('./users/signup.ejs', { err: 'Email already taken' });
+        } else {
+            req.session.user = user._id; // this is a login
+            res.redirect('/users/profile'); // send the logged in user to a private space in the site
+        }
+    });
+});
+
 module.exports = usersRouter;
