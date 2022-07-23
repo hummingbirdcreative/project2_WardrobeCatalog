@@ -6,6 +6,13 @@ const bcrypt = require('bcrypt');
 const SALT_ROUNDS = 10;
 
 //Middleware
+const auth = (req, res, next) => {
+    if (req.session.user) {
+        next();
+    } else {
+        res.redirect('/users/login');
+    };
+};
 
 //Routes
 // login GET route - renders login page
