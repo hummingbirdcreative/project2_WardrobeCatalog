@@ -10,7 +10,7 @@ const router = require('express').Router();
 //Index Route
 router.get('/items', (req, res) => {
     Item.find({}, (err, allItems) => {
-        res.render('index.ejs', {
+        res.render('./items/index.ejs', {
             allItems
         });
     });
@@ -18,7 +18,7 @@ router.get('/items', (req, res) => {
 
 //New Route
 router.get('/items/new', (req, res) => {
-    res.render('new.ejs')
+    res.render('./items/new.ejs')
 });
 
 //Delete Route
@@ -45,7 +45,7 @@ router.post('/items' , (req,res) => {
 //Edit Route
 router.get('/items/:id/edit' , (req,res) => {
     Item.findById(req.params.id, (err, foundItem)=> {
-          res.render('edit.ejs' , {
+          res.render('./items/edit.ejs' , {
               foundItem
           });
       });
@@ -54,7 +54,7 @@ router.get('/items/:id/edit' , (req,res) => {
 //Show Route
 router.get("/items/:id", (req,res) => {
     Item.findById(req.params.id, (err, foundItem) => {
-        res.render('show.ejs', {
+        res.render('./items/show.ejs', {
             foundItem
         });
     });

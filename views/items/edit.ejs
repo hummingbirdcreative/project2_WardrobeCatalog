@@ -1,3 +1,5 @@
+<%- include('../partials/head') %>
+
 <h1><%= foundItem.title %></h1>
 <form action="/items/<%=foundItem._id%>?_method=PUT" method="POST">
     <label for="name">Name</label>
@@ -21,3 +23,5 @@
     <input type="submit" value="Update Entry"/> 
     <a href = '/items'>Back</a>
 </form>
+
+<%- include('../partials/footer') %>

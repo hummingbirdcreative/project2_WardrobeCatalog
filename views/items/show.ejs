@@ -1,3 +1,5 @@
+<%- include('../partials/head') %>
+
 <ul>
     <li><img src="<%= foundItem.img %>" alt="picture"></li>
     <li>name: <%= foundItem.name %></li>
@@ -14,3 +16,5 @@
 <a href = '/items/<%= foundItem._id %>/edit'>Edit</a>
 
 <a href="/items">Back</a>
+
+<%- include('../partials/footer') %>
