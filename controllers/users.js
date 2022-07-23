@@ -14,7 +14,6 @@ const auth = (req, res, next) => {
     };
 };
 
-//Routes
 // login GET route - renders login page
 usersRouter.get('/login', (req, res) => {
     res.render('./users/login.ejs', { err: '' });
@@ -34,9 +33,8 @@ usersRouter.post('/login', (req, res) => {
         // step 3 assuming there is a match, we create a session and redirect to dashboard
         req.session.user = foundUser._id
         res.redirect('/users/profile');
-    })
+    });
 });
-
 
 // signup GET route - renders the signup form
 usersRouter.get('/signup', (req, res) => {
@@ -56,11 +54,18 @@ usersRouter.post('/signup', (req, res) => {
         } else {
             req.session.user = user._id; // this is a login
             res.redirect('/users/profile'); // send the logged in user to a private space in the site
-        };
+        }
     });
 });
 
-// profile GET route-find the logged in user
+// logout route
+usersRouter.get('/logout', (req, res) => {
+    req.session.destroy(() => {
+        res.redirect('/users/login');
+    });
+});
+
+// profile GET route
 usersRouter.get('/profile', auth, (req, res) => {
     User.findById(req.session.user, (err, user) => {
         res.render('./users/profile.ejs', { user });

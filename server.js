@@ -47,8 +47,8 @@ app.get('/', (req, res) => {
     res.redirect('/items')
 });
 
-app.use('/', itemsRouter);
-app.use('/', usersController);
+app.use('/items', itemsRouter);
+app.use('/users', usersController);
 
 //Listen on PORT
 app.listen(PORT, () => {
