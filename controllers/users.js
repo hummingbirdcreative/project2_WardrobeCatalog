@@ -53,4 +53,11 @@ usersRouter.post('/signup', (req, res) => {
     });
 });
 
+// profile GET route-find the logged in user
+usersRouter.get('/profile', auth, (req, res) => {
+    User.findById(req.session.user, (err, user) => {
+        res.render('./users/profile.ejs', { user });
+    });
+});
+
 module.exports = usersRouter;
