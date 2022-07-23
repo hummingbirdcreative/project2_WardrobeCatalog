@@ -1,35 +1,36 @@
 <%- include('../partials/head') %>
 <%- include('../partials/header') %>
+
 <h1>Edit Account</h1>
+
 <% if(err) { %>
 <p style="color: red;  margin: 1rem"><%= err %></p>
 <% } %>
+
 <form action="/users/profile/edit?_method=PUT" method="POST">
-    <label for="name">
-        Name
-        <input type="name" name="name" id="name" value="<%= user.name %>" autofocus required>
-    </label>
-    <label for="email">
-        Email
-        <input type="email" name="email" id="email" value="<%= user.email %>" required>
-    </label>
-    <label for="password">
-        Password
-        <input type="password" name="password" id="password">
-    </label>
-    <label for="submit">
-        <input class="button" type="submit" id="submit" value="Save">
-    </label>
+    <label for="name">Name</label>
+    <input type="name" name="name" id="name" value="<%= user.name %>" autofocus required>
+    
+    <label for="email">Email</label>
+    <input type="email" name="email" id="email" value="<%= user.email %>" required>
+
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password">
+    
+    
+    <input class="button" type="submit" id="submit" value="Save">
 </form>
+
 <form action="/users/profile?_method=DELETE" method="POST">
     <p style="color: red; text-align: center; margin-bottom: 1rem;">CAUTION! CANNOT BE UNDONE!</p>
-    <label for="confirm">
-        Are you sure? Check box to confirm.
-        <input type="checkbox" name="confirm" id="confirm" required>
-    </label>
-    <label for="delete-profile">
-        <input style="width: fit-content;" class="button" type="submit" id="delete-profile" value="Delete Profile">
-    </label>
+
+    <label for="confirm">Are you sure? Check box to confirm.</label>
+    <input type="checkbox" name="confirm" id="confirm" required>
+
+  
+    <input style="width: fit-content;" class="button" type="submit" id="delete-profile" value="Delete Profile">  
 </form>
+
 <a class="button" href="/users/profile">Go back</a>
+
 <%- include('../partials/footer') %>

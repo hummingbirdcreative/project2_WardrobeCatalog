@@ -16,7 +16,9 @@ const auth = (req, res, next) => {
 
 // login GET route - renders login page
 usersRouter.get('/login', (req, res) => {
-    res.render('./users/login.ejs', { err: '' });
+    res.render('./users/login.ejs', { 
+        err: '' 
+    });
 });
 
 // login POST route - authenticate/login user
@@ -36,12 +38,14 @@ usersRouter.post('/login', (req, res) => {
     });
 });
 
-// signup GET route - renders the signup form
+//Signup GET Route- renders signup form
 usersRouter.get('/signup', (req, res) => {
-    res.render('./users/signup.ejs', { err: '' });
+    res.render('./users/signup.ejs', { 
+        err: '' 
+    });
 });
 
-// signup POST route - create a new user
+//Signup POST Route - create a new user
 usersRouter.post('/signup', (req, res) => {
     if (req.body.password.length < 8) {
         return res.render('./users/signup.ejs', { err: 'Password must be at least 8 characters long' });
@@ -54,32 +58,37 @@ usersRouter.post('/signup', (req, res) => {
         } else {
             req.session.user = user._id; // this is a login
             res.redirect('/users/profile'); // send the logged in user to a private space in the site
-        }
+        };
     });
 });
 
-// logout route
+//Logout
 usersRouter.get('/logout', (req, res) => {
     req.session.destroy(() => {
         res.redirect('/users/login');
     });
 });
 
-// profile GET route
+//Profile Get 
 usersRouter.get('/profile', auth, (req, res) => {
     User.findById(req.session.user, (err, user) => {
-        res.render('./users/profile.ejs', { user });
+        res.render('./users/profile.ejs', { 
+            user 
+        });
     });
 });
 
-// profile EDIT route - renders the edit form
+//Profile EDIT Route-renders edit form
 usersRouter.get('/profile/edit', auth, (req, res) => {
     User.findById(req.session.user, (err, user) => {
-        res.render('./users/edit.ejs', { user, err: '' });
+        res.render('./users/edit.ejs', { 
+            user, 
+            err: '' 
+        });
     });
 });
 
-// profile UPDATE route - updates the user in the database
+//Profile UPDATE Route - updates the user in the database
 usersRouter.put('/profile/edit', auth, (req, res) => {
     if (req.body.password.length < 8) {
         return res.render('./users/edit.ejs', { err: 'Password must be at least 8 characters long' });
@@ -91,7 +100,7 @@ usersRouter.put('/profile/edit', auth, (req, res) => {
     });
 });
 
-// profile DELETE route - deletes the user from the database
+//Profile DELETE route - deletes the user from the database
 usersRouter.delete('/profile', auth, (req, res) => {
     User.findByIdAndDelete(req.session.user, (err, user) => {
         Log.deleteMany({ user: req.session.user }, (err, logs) => {

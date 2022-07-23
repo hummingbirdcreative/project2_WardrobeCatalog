@@ -1,24 +1,32 @@
 <%- include('../partials/head') %>
 <%- include('../partials/header') %>
 
+<% if (name) { %>
+<h1><span style="text-transform: capitalize;"><%= name %></span>'s logs</h1>
+<% } else { %>
+<h1>Wardrobe Items Index Page</h1>
+<% } %>
 
-<nav>
-    <a href="/items/new">Create New Item</a>
-</nav>
-<div class="container">
-    
-    <ul>
-    
-    <% allItems.forEach(item => { %>
-        <li>
-            <a href="/items/<%= item._id %>">
-                <img src="<%= item.img%>" alt="picture">
-            </a>
-        </li>
-    <% }) %>
+<a class="button" style="margin: 1rem" href="/items/new">Add To Wardrobe</a>
 
-    </ul>
+<div class="items-parent">
+    <% if (items.length) { %>
+    <% items.forEach(function(item) { %>
     
+        <div class="item">
+        <ul>
+            <li>
+                <a href="/items/<%= item._id %>">
+                    <img src="<%= item.img%>" alt="picture">
+                </a> 
+            </li>
+        </ul>
+    </div>
+
+    <% }); %>
+    <% } else { %>
+    <p>No logs found.</p>
+    <% } %>
 </div>
 
 <%- include('../partials/footer') %>

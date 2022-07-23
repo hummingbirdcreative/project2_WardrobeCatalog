@@ -1,6 +1,9 @@
 <%- include('../partials/head') %>
 <%- include('../partials/header') %>
 
+<a class="button" href="/items/filtered">My logs</a>
+<a class="button" style="margin: 1rem;" href="/items">All logs</a>
+
 <ul>
     <li><img src="<%= foundItem.img %>" alt="picture"></li>
     <li>name: <%= foundItem.name %></li>
@@ -10,11 +13,17 @@
     <li>notes: <%= foundItem.notes %></li>
 </ul>
 
-<form action="/items/<%= foundItem._id %>?_method=DELETE" method="POST">
-    <input type="submit" value="Delete">
-</form>
+<% if (user === foundItem.user.toString()) { %>
+    
+    <a class="button" href="/items/<%= foundItem._id %>/edit">Edit</a>
 
-<a href = '/items/<%= foundItem._id %>/edit'>Edit</a>
+    <form class="delete-form" action="/items/<%= foundItem._id %>?_method=DELETE" method="POST">
+        <input type="submit" value="Delete" class="button">
+    </form>
+    
+    <% } else { %>
+    <p style="color: red">You can't edit or delete this log</p>
+    <%  } %>
 
 <a href="/items">Back</a>
 

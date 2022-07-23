@@ -6,7 +6,7 @@ const User = require('../models/user');
 //Initialize router object & express
 const router = require('express').Router();
 
-//User router middleware
+//Router Middleware
 router.use(function (req, res, next) {
     if (req.session.user) {
         next();
@@ -15,24 +15,24 @@ router.use(function (req, res, next) {
     };
 });
 
-//Define Routes
-//INDUCES
-//Index Route
+//Index route-list all logs
+//Do you want user homepage to just show user wardrobe items???
 router.get('/', (req, res) => {
-    Item.find({}, (err, allItems) => {
-        res.render('./items/index.ejs', {
-            allItems, 
-            user: req.session.user
+    Item.find({}, (err, items) => {
+        res.render('./items/index.ejs', { 
+            items, 
+            name: '', 
+            user: req.session.user 
         });
     });
 });
 
-// filtered index route - list all items by user
+//Filtered Index-only logs from user
 router.get('/filtered', (req, res) => {
-    User.findById(req.session.user, (error, user) => {
-        Log.find({ user: req.session.user }, (error, items) => {
+    User.findById(req.session.user, (err, user) => {
+        Item.find({ user: req.session.user }, (err, items) => {
             res.render('./items/index.ejs', { 
-                allItems, 
+                items, 
                 name: `${user.name}` 
             });
         });
@@ -60,6 +60,7 @@ router.put('/:id', (req,res) => {
 
 //Create Route
 router.post('/' , (req,res) => {
+    req.body.user = req.session.user;
     Item.create(req.body, (err, createdItem) => {
         res.redirect('/items')
     });
