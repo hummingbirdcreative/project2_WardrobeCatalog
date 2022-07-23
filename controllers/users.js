@@ -54,9 +54,39 @@ usersRouter.post('/signup', (req, res) => {
 });
 
 // profile GET route-find the logged in user
-usersRouter.get('/profile', (req, res) => {
+usersRouter.get('/profile', auth, (req, res) => {
     User.findById(req.session.user, (err, user) => {
         res.render('./users/profile.ejs', { user });
+    });
+});
+
+// profile EDIT route - renders the edit form
+usersRouter.get('/profile/edit', auth, (req, res) => {
+    User.findById(req.session.user, (err, user) => {
+        res.render('./users/edit.ejs', { user, err: '' });
+    });
+});
+
+// profile UPDATE route - updates the user in the database
+usersRouter.put('/profile/edit', auth, (req, res) => {
+    if (req.body.password.length < 8) {
+        return res.render('./users/edit.ejs', { err: 'Password must be at least 8 characters long' });
+    }
+    const hash = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(SALT_ROUNDS));
+    req.body.password = hash;
+    User.findByIdAndUpdate(req.session.user, req.body, { new: true }, (err, user) => {
+        res.redirect('/users/profile');
+    });
+});
+
+// profile DELETE route - deletes the user from the database
+usersRouter.delete('/profile', auth, (req, res) => {
+    User.findByIdAndDelete(req.session.user, (err, user) => {
+        Log.deleteMany({ user: req.session.user }, (err, logs) => {
+            req.session.destroy(() => {
+                res.redirect('/users/signup');
+            });
+        });
     });
 });
 
