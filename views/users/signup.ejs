@@ -1,0 +1,26 @@
+<%- include('../partials/head') %>
+
+<h1>Signup</h1>
+
+<% if(err) { %>
+<p style="color: red;  margin: 1rem"><%= err %></p>
+<% } %>
+<form action="/users/signup" method="POST">
+    <label for="name">Name</label>
+    <input type="text" name="name" autofocus required>
+
+    <label for="email">Email</label>
+    <input type="email" name="email" required>
+    
+    <label for="password">Password</label>
+    <input type="password" name="password" required>
+ 
+    <input class="button" type="submit" value="Signup">
+</form>
+
+<div class="redirect">
+    <p>Already have an account?</p>
+    <a class="button" href="/users/login">Login</a>
+</div>
+
+<%- include('../partials/footer') %>
