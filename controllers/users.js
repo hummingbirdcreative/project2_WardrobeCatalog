@@ -56,7 +56,7 @@ usersRouter.post('/signup', (req, res) => {
         } else {
             req.session.user = user._id; // this is a login
             res.redirect('/users/profile'); // send the logged in user to a private space in the site
-        }
+        };
     });
 });
 
