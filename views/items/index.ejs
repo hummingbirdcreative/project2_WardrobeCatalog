@@ -9,11 +9,10 @@
 
 <a class="button" style="margin: 1rem" href="/items/new">Add To Wardrobe</a>
 
-<div class="items-parent">
+<div class="card">
     <% if (items.length) { %>
     <% items.forEach(function(item) { %>
     
-        <div class="item">
         <ul>
             <li>
                 <a href="/items/<%= item._id %>">
@@ -21,7 +20,7 @@
                 </a> 
             </li>
         </ul>
-    </div>
+  
 
     <% }); %>
     <% } else { %>

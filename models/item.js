@@ -10,6 +10,7 @@ const itemSchema = new Schema(
         description: String,
         img: String,
         notes: String,
+        itemIsFavorite: Boolean,
         user: { type: Schema.Types.ObjectId, ref: "User" }
     }
 )

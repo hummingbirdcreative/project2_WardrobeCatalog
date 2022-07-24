@@ -53,6 +53,7 @@ router.delete('/:id' , (req,res) => {
 
 //Update Route
 router.put('/:id', (req,res) => {
+    req.body.itemIsFavorite = !!req.body.itemIsFavorite;
     Item.findByIdAndUpdate(req.params.id, req.body, (err, updatedItem) => {
         res.redirect('/items');
     });
@@ -60,6 +61,7 @@ router.put('/:id', (req,res) => {
 
 //Create Route
 router.post('/' , (req,res) => {
+    req.body.itemIsFavorite = !!req.body.itemIsFavorite;
     req.body.user = req.session.user;
     Item.create(req.body, (err, createdItem) => {
         res.redirect('/items')

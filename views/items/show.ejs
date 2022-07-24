@@ -11,6 +11,7 @@
     <li>type: <%= foundItem.type %></li>
     <li>description: <%= foundItem.description %></li>
     <li>notes: <%= foundItem.notes %></li>
+    <li>Favorite: <%= foundItem.itemIsFavorite %></li>
 </ul>
 
 <% if (user === foundItem.user.toString()) { %>

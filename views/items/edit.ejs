@@ -21,6 +21,10 @@
 
     <label for="notes">Notes</label>
     <input type="text" name="notes" id="notes" value="<%= foundItem.notes %>">>
+
+    <label for="itemIsFavorite">Favorite?</label>
+    <input id="itemIsFavorite" type="checkbox" name="itemIsFavorite" <% if(foundItem.itemIsFavorite){ %> checked <% } %>>
+
     
     <input type="submit" value="Update Entry"/> 
     <a href = '/items'>Back</a>
