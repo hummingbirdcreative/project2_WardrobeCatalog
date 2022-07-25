@@ -5,6 +5,7 @@ const userSchema = new Schema({
     name: { type: String, required: true, trim: true },
     email: { type: String, required: true, unique: true, trim: true },
     password: { type: String, required: true, min: 8 },
+    favoriteItems: [String] // these might be itemId's, so for example [1,2,3]
 }, { timestamps: true });
 
 

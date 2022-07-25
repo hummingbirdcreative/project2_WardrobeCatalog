@@ -1,8 +1,8 @@
 <%- include('../partials/head') %>
 <%- include('../partials/header') %>
 
-<a class="button" href="/items/filtered">My logs</a>
-<a class="button" style="margin: 1rem;" href="/items">All logs</a>
+<a class="button" href="/items/filtered">My Wardrobe Items</a>
+<a class="button" style="margin: 1rem;" href="/items">All Wardrobe</a>
 
 <ul>
     <li><img src="<%= foundItem.img %>" alt="picture"></li>
@@ -19,6 +19,10 @@
     <a class="button" href="/items/<%= foundItem._id %>/edit">Edit</a>
 
     <form class="delete-form" action="/items/<%= foundItem._id %>?_method=DELETE" method="POST">
+        <input type="submit" value="Delete" class="button">
+    </form>
+
+    <form class="favorite-form" action="/items/<%= foundItem._id %>?_method=PUT" method="POST">
         <input type="submit" value="Delete" class="button">
     </form>
     
