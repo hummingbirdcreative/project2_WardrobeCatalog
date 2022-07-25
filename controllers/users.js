@@ -32,8 +32,8 @@ usersRouter.post('/login', (req, res) => {
             // step 2.1 - if there is not match, respond with a error saying invalid credentials
             return res.render('./users/login.ejs', { err: 'Invalid credentials' });
         }
-        // step 3 assuming there is a match, we create a session and redirect to dashboard
-        req.session.user = foundUser._id
+        // step 3 assuming there is a match, we create a session and redirect to dashboard. store entire user on session variable instead of just a user id
+        req.session.user = foundUser
         res.redirect('/users/profile');
     });
 });
