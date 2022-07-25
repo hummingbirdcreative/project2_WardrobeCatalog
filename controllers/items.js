@@ -19,10 +19,10 @@ router.use(function (req, res, next) {
 //Do you want user homepage to just show user wardrobe items???
 router.get('/', (req, res) => {
     Item.find({}, (err, items) => {
-        res.render('./items/index.ejs', { 
-            items, 
-            name: '', 
-            user: req.session.user 
+        res.render('./items/index.ejs', {
+            items,
+            name: '',
+            user: req.session.user
         });
     });
 });
@@ -31,9 +31,9 @@ router.get('/', (req, res) => {
 router.get('/filtered', (req, res) => {
     User.findById(req.session.user, (err, user) => {
         Item.find({ user: req.session.user }, (err, items) => {
-            res.render('./items/index.ejs', { 
-                items, 
-                name: `${user.name}` 
+            res.render('./items/index.ejs', {
+                items,
+                name: `${user.name}`
             });
         });
     });
@@ -77,12 +77,57 @@ router.get('/:id/edit' , (req,res) => {
       });
   });
 
+router.post('/:id/favorite' , (req,res) => {
+    console.log('query sent', req.query);
+
+
+    /**
+     * switch off whether we are currently favorited; if we are, do the opposite. this way we can toggle it back and forth.
+     e.g.
+     POST /items/:id/favorite?isFavorite=true
+     or...
+     POST /items/:id/favorite?isFavorite=true
+     */
+    const isCurrentlyFavorited = req.query.isFavorite === 'true'
+    const user = req.session.user;
+    const userId = user._id;
+
+    if(isCurrentlyFavorited) {
+        User.updateOne(
+            { _id: userId },
+            { $pullAll: { favoriteItems: req.params.id } },
+            () => {
+                console.log(`user updated! favoriteItems should now not include ${req.params.id}`)
+            }
+        );
+    } else {
+        User.updateOne(
+            { _id: userId },
+            { $push: { favoriteItems: req.params.id } },
+            () => {
+                console.log(`user updated! favoriteItems should now include ${req.params.id}`)
+            }
+        );
+    }
+
+    res.redirect(`/items/${req.params.id}`);
+  });
+
 //Show Route
 router.get("/:id", (req,res) => {
-    Item.findById(req.params.id, (err, foundItem) => {
+    // define a separate variable since we use it more than once
+    const itemId = req.params.id;
+
+    const user = req.session.user;
+
+    console.log('user.favoriteItems', user.favoriteItems)
+    Item.findById(itemId, (err, foundItem) => {
+        const isFavorited = user && user.favoriteItems && user.favoriteItems.includes(itemId) || false;
+
         res.render('./items/show.ejs', {
             foundItem,
-            user: req.session.user
+            user: req.session.user,
+            isFavorited // add this variable to the view so we can easily use it
         });
     });
 });

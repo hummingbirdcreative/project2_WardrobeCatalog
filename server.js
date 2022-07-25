@@ -1,5 +1,9 @@
 //Dependencies
-require('dotenv').config();
+const dotEnvPath = `${__dirname}/.env`;
+console.log('dotEnvPath', dotEnvPath)
+require('dotenv').config({
+    path: dotEnvPath
+});
 const express = require('express');
 //const expressLayouts = require ('express-ejs-layouts');
 const methodOverride = require('method-override');
@@ -20,15 +24,15 @@ mongoose.connection.on('connected', () => {
 });
 
 //Mount Middleware
-app.use(express.urlencoded({ extended: false })); 
-app.use(express.static('public')); 
+app.use(express.urlencoded({ extended: false }));
+app.use(express.static('public'));
 //app.use(expressLayouts);
 app.set('view engine', 'ejs');
 app.use(methodOverride('_method'));
 app.use(morgan('dev'));
 app.use(session({ //session middleware
-    secret: SECRET, 
-    resave: false, 
+    secret: SECRET,
+    resave: false,
     saveUninitialized: false
 }));
 app.use(async function (req, res, next) {//created middlware-user to res.local object
