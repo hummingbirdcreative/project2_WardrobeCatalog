@@ -196,3 +196,7 @@ footer {
         font-size: .75rem;
     }
 }
+
+img {
+    max-width: 100%;
+}

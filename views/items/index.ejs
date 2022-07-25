@@ -12,15 +12,15 @@
 <div class="card">
     <% if (items.length) { %>
     <% items.forEach(function(item) { %>
-    
+
         <ul>
-            <li>
+            <li class="w-25">
                 <a href="/items/<%= item._id %>">
-                    <img src="<%= item.img%>" alt="picture">
-                </a> 
+                    <img class="" src="<%= item.img %>" alt="<%= item.name %> picture" />
+                </a>
             </li>
         </ul>
-  
+
 
     <% }); %>
     <% } else { %>

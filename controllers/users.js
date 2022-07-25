@@ -16,8 +16,8 @@ const auth = (req, res, next) => {
 
 // login GET route - renders login page
 usersRouter.get('/login', (req, res) => {
-    res.render('./users/login.ejs', { 
-        err: '' 
+    res.render('./users/login.ejs', {
+        err: ''
     });
 });
 
@@ -33,15 +33,16 @@ usersRouter.post('/login', (req, res) => {
             return res.render('./users/login.ejs', { err: 'Invalid credentials' });
         }
         // step 3 assuming there is a match, we create a session and redirect to dashboard
-        req.session.user = foundUser._id
+        // NOTE: Would it be better to store the entire USER on the session variable instead of just a user Id?
+        req.session.user = foundUser
         res.redirect('/users/profile');
     });
 });
 
 //Signup GET Route- renders signup form
 usersRouter.get('/signup', (req, res) => {
-    res.render('./users/signup.ejs', { 
-        err: '' 
+    res.render('./users/signup.ejs', {
+        err: ''
     });
 });
 
@@ -69,11 +70,11 @@ usersRouter.get('/logout', (req, res) => {
     });
 });
 
-//Profile Get 
+//Profile Get
 usersRouter.get('/profile', auth, (req, res) => {
     User.findById(req.session.user, (err, user) => {
-        res.render('./users/profile.ejs', { 
-            user 
+        res.render('./users/profile.ejs', {
+            user
         });
     });
 });
@@ -81,9 +82,9 @@ usersRouter.get('/profile', auth, (req, res) => {
 //Profile EDIT Route-renders edit form
 usersRouter.get('/profile/edit', auth, (req, res) => {
     User.findById(req.session.user, (err, user) => {
-        res.render('./users/edit.ejs', { 
-            user, 
-            err: '' 
+        res.render('./users/edit.ejs', {
+            user,
+            err: ''
         });
     });
 });
