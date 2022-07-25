@@ -1,5 +1,6 @@
 //Import Dependencies
 //Import Models
+const item = require('../models/item');
 const Item = require('../models/item');
 const User = require('../models/user');
 
@@ -39,18 +40,38 @@ router.get('/filtered', (req, res) => {
     });
 });
 
-// //Favorites Index-only logs from user
-// router.get('/favorites', (req, res) => {
-//     User.findById(req.session.user, (err, user) => {
-//         Item.find({ user: req.session.user }, (err, items) => {
-//             res.render('./items/index.ejs', { 
-//                 items,
-//                 name: `${user.name}` 
-//             });
-//         });
-//     });
-// });
-
+//Favorite route items from user
+router.post('/:id/favorite' , (req,res) => {
+    console.log('query sent', req.query);
+ /**
+     * switch off whether we are currently favorited; if we are, do the opposite. this way we can toggle it back and forth.
+     e.g.
+     POST /items/:id/favorite?isFavorite=true
+     or...
+     POST /items/:id/favorite?isFavorite=true
+     */
+const isCurrentlyFavorited = req.query.isFavorite === 'true'
+const user = req.session.user;
+const userId = user._id; 
+    if(isCurrentlyFavorited) {
+        User.updateOne(
+            { _id: userId },
+            { $pullAll: { favoriteItems: req.params.id } },
+            () => {
+                console.log(`user updated! favoriteItems should now not include ${req.params.id}`)
+            }
+        );
+    } else {
+        User.updateOne(
+            { _id: userId },
+            { $push: { favoriteItems: req.params.id } },
+            () => {
+                console.log(`user updated! favoriteItems should now include ${req.params.id}`)
+            }
+        );
+    }
+    res.redirect(`/items/${req.params.id}`);
+   });
 
 //New Route
 router.get('/new', (req, res) => {
@@ -90,10 +111,15 @@ router.get('/:id/edit' , (req,res) => {
 
 //Show Route
 router.get("/:id", (req,res) => {
-    Item.findById(req.params.id, (err, foundItem) => {
+    const itemId = req.params.id;
+    const user = req.session.user;
+    console.log('user.favoriteItems', user.favoriteItems) 
+    Item.findById(itemId, (err, foundItem) => {
+        const isFavorited = user && user.favoriteItems && user.favoriteItems.includes(itemId) || false;
         res.render('./items/show.ejs', {
             foundItem,
-            user: req.session.user
+            user: req.session.user,
+            isFavorited
         });
     });
 });
