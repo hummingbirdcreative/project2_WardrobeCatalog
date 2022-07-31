@@ -22,6 +22,7 @@
       <ul>
         <li><a href="#initial-wireframes">Initial Wireframes</a></li>
         <li><a href="#tools-used">Tools Used</a></li>
+        <li><a href="#getting-started">Getting Started</a></li>
     </li>
   </ol>
 </details>
