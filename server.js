@@ -8,6 +8,7 @@ const morgan = require('morgan');
 const itemsRouter = require('./controllers/items');
 const session = require('express-session');
 const usersController = require('./controllers/users');
+const port = process.env.PORT || "3000"
 
 
 //Initialize Express App
