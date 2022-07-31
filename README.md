@@ -22,10 +22,6 @@
       <ul>
         <li><a href="#initial-wireframes">Initial Wireframes</a></li>
         <li><a href="#tools-used">Tools Used</a></li>
-        <li><a href="#future-features">Future Features</a></li>
-        <li><a href="#helpful-links-for-this-project">Helpful Links</a></li>
-        <li><a href="#contributing">Contributing</a></li>
-      </ul>
     </li>
   </ol>
 </details>
