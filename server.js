@@ -9,6 +9,7 @@ const itemsRouter = require('./controllers/items');
 const session = require('express-session');
 const usersController = require('./controllers/users');
 
+
 //Initialize Express App
 const app = express();
 
@@ -21,8 +22,8 @@ mongoose.connection.on('connected', () => {
 
 //Mount Middleware
 app.use(express.urlencoded({ extended: false })); 
-app.use(express.static('public')); 
-//app.use(expressLayouts);
+app.use(express.static('public'));
+//app.use(expressLayouts)
 app.set('view engine', 'ejs');
 app.use(methodOverride('_method'));
 app.use(morgan('dev'));

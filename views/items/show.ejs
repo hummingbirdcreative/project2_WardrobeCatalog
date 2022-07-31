@@ -1,35 +1,48 @@
 <%- include('../partials/head') %>
-<%- include('../partials/header') %>
+<%- include('../partials/nav') %>
 
-<a class="button" href="/items/filtered">My Wardrobe Items</a>
-<a class="button" style="margin: 1rem;" href="/items">All Wardrobe</a>
-
-<ul>
-    <li><img src="<%= foundItem.img %>" alt="picture"></li>
-    <li>name: <%= foundItem.name %></li>
-    <li>brand: <%= foundItem.brand %></li>
-    <li>type: <%= foundItem.type %></li>
-    <li>description: <%= foundItem.description %></li>
-    <li>notes: <%= foundItem.notes %></li>
-    <li>Favorite: <%= isFavorited ? "YES" : "NO" %></li>
-</ul>
-
-<% if (user === foundItem.user._id.toString()) { %>
+ <!-- Product section-->
+        <section class="py-5">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="row gx-4 gx-lg-5 align-items-center">
+                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="<%= foundItem.img %>" alt="Wardrobe Item" /></div>
+                    <div class="col-md-6">
+                        <div class="small mb-1"><%= foundItem.brand %></div>
+                        <h1 class="display-5 fw-bolder"><%= foundItem.name %></h1>
+                        <div class="fs-5 mb-5">
+                            <% if (foundItem.itemIsFavorite) { %>
+                                <form action="/items/<%=foundItem._id%>?_method=PUT" method="POST">
+                                    <label for="itemIsFavorite"></label>
+                                    <input id="itemIsFavorite" type="checkbox" name="itemIsFavorite" hidden>
+                                    <button style="all: unset" type="submit"><i class="bi bi-star-fill" style="color: yellow; text-shadow: 2px 0 #000, -2px 0 #000, 0 2px #000, 0 -2px #000, 1px 1px #000, -1px -1px #000, 1px -1px #000, -1px 1px #000;"></i></i></button>
+                                </form>
+                                <% } else { %>
+                                <form action="/items/<%=foundItem._id%>?_method=PUT" method="POST">
+                                     <label for="itemIsFavorite"></label>
+                                     <input id="itemIsFavorite" type="checkbox" name="itemIsFavorite" checked hidden>
+                                     <button style="all: unset" type="submit"><i class="bi bi-star"></i></button>
+                                </form>
+                                <% } %>
+                        </div>
+                      
+                        <p class="lead">Item Type: <%= foundItem.type %> </p>
+                        <p class="lead">Description: <%= foundItem.description %> </p>
+                        <p class="lead">Fit Notes: <%= foundItem.notes %> </p>
+                        <div class="d-flex">
+                            <% if (user === foundItem.user.toString()) { %>
     
-    <a class="button" href="/items/<%= foundItem._id %>/edit">Edit</a>
-
-    <form class="delete-form" action="/items/<%= foundItem._id %>?_method=DELETE" method="POST">
-        <input type="submit" value="Delete" class="button">
-    </form>
-    
-    <% } else { %>
-    <p style="color: red">You can't edit or delete this log</p>
-    <%  } %>
-
-    <form action="/items/<%= foundItem._id %>/favorite?isFavorite=<%= isFavorited %>" method="POST">
-        <input type="submit" value="Add Favorite" class="button">
-    </form>
-
-<a href="/items">Back</a>
-
+                                <a class="btn btn-outline-dark flex-shrink-0" href="/items/<%= foundItem._id %>/edit"><i class="bi bi-pencil-fill"></i></a>
+                                <form class="btn btn-outline-dark flex-shrink-0" action="/items/<%= foundItem._id %>?_method=DELETE" method="POST">
+                                    <button style="all: unset" type="submit"><i class="bi bi-trash-fill"></i></button>
+                                </form>
+                                
+                                <% } else { %>
+                                <p style="color: red">You can't edit or delete this log</p>
+                                <%  } %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>       
+                              
 <%- include('../partials/footer') %>

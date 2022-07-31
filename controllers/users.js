@@ -33,7 +33,7 @@ usersRouter.post('/login', (req, res) => {
             return res.render('./users/login.ejs', { err: 'Invalid credentials' });
         }
         // step 3 assuming there is a match, we create a session and redirect to dashboard. store entire user on session variable instead of just a user id
-        req.session.user = foundUser
+        req.session.user = foundUser._id
         res.redirect('/users/profile');
     });
 });
@@ -56,7 +56,7 @@ usersRouter.post('/signup', (req, res) => {
         if (error) {
             res.render('./users/signup.ejs', { err: 'Email already taken' });
         } else {
-            req.session.user = user._id; // this is a login
+            req.session.user = user; // this is a user object**
             res.redirect('/users/profile'); // send the logged in user to a private space in the site
         };
     });

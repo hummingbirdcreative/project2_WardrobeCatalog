@@ -40,38 +40,19 @@ router.get('/filtered', (req, res) => {
     });
 });
 
-//Favorite route items from user
-router.post('/:id/favorite' , (req,res) => {
-    console.log('query sent', req.query);
- /**
-     * switch off whether we are currently favorited; if we are, do the opposite. this way we can toggle it back and forth.
-     e.g.
-     POST /items/:id/favorite?isFavorite=true
-     or...
-     POST /items/:id/favorite?isFavorite=true
-     */
-const isCurrentlyFavorited = req.query.isFavorite === 'true'
-const user = req.session.user;
-const userId = user._id; 
-    if(isCurrentlyFavorited) {
-        User.updateOne(
-            { _id: userId },
-            { $pullAll: { favoriteItems: req.params.id } },
-            () => {
-                console.log(`user updated! favoriteItems should now not include ${req.params.id}`)
-            }
-        );
-    } else {
-        User.updateOne(
-            { _id: userId },
-            { $push: { favoriteItems: req.params.id } },
-            () => {
-                console.log(`user updated! favoriteItems should now include ${req.params.id}`)
-            }
-        );
-    }
-    res.redirect(`/items/${req.params.id}`);
-   });
+//favorite route
+router.get('/favorites', (req, res) => {
+    User.findById(req.session.user, (err, user) => {
+        //const isCurrentlyFavorited = req.params.itemIsFavorite === 'true'
+        Item.find({ user: req.session.user, itemIsFavorite: true}, (err, items) => {
+            res.render('./items/index.ejs', { 
+                items, 
+                name: `${user.name}` 
+            });
+        });
+    });
+});
+
 
 //New Route
 router.get('/new', (req, res) => {
@@ -87,39 +68,44 @@ router.delete('/:id' , (req,res) => {
 
 //Update Route
 router.put('/:id', (req,res) => {
+    console.log(req.body.itemIsFavorite)
+    req.body.itemIsFavorite = !!req.body.itemIsFavorite
+    console.log(req.body.itemIsFavorite)
     Item.findByIdAndUpdate(req.params.id, req.body, (err, updatedItem) => {
-        res.redirect('/items');
+        res.redirect(`/items/${req.params.id}`)
     });
 });
+
 
 //Create Route
 router.post('/' , (req,res) => {
     req.body.user = req.session.user;
     Item.create(req.body, (err, createdItem) => {
-        res.redirect('/items')
+        res.redirect('/items/filtered')
     });
   });
+
 
 //Edit Route
 router.get('/:id/edit' , (req,res) => {
     Item.findById(req.params.id, (err, foundItem)=> {
           res.render('./items/edit.ejs' , {
-              foundItem
+              foundItem,
           });
-      });
-  });
+        });
+    });
 
 //Show Route
 router.get("/:id", (req,res) => {
     const itemId = req.params.id;
     const user = req.session.user;
-    console.log('user.favoriteItems', user.favoriteItems) 
+    //console.log('user.favoriteItems', user.favoriteItems) 
     Item.findById(itemId, (err, foundItem) => {
-        const isFavorited = user && user.favoriteItems && user.favoriteItems.includes(itemId) || false;
+        //const isFavorited = user && user.favoriteItems && user.favoriteItems.includes(itemId) || false;
         res.render('./items/show.ejs', {
             foundItem,
             user: req.session.user,
-            isFavorited
+            //isFavorited
         });
     });
 });
