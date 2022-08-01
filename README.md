@@ -52,7 +52,7 @@ Here are a few of the views as a login-in user.
 ![UserProfile](https://i.imgur.com/sA4gxsR.png)
 ![WardrobeIndex](https://i.imgur.com/bYQlMgb.png)
 
-## Do you want to see what a live, exsisting user collection looks like? 
+## Do you want to see what a live, exsisting user collection looks like?
 <b>For testing purposes, you can use the login with:</b> <br>
 -- email: test@email.com <br>
 -- password: testtest
@@ -105,7 +105,7 @@ Here are a few of the views as a login-in user.
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Developement
-### Planning, Research, and Future Developement 
+### Planning, Research, and Future Developement
 
 #### Tools used
 - [Invision](https://www.invisionapp.com/)
@@ -122,5 +122,7 @@ Here are a few of the views as a login-in user.
 - add PORT=3000 to .env to set the port
 - add MONGO_URL=YourMongoDBConnectionString to .env to set the database connection string
 - nodemon to start the server
+- compile + watch styles by running `npm run styles`
+  - _Never edit `./public/styles.css` directly. This file is generated using tailwind. In a production environment, it would be `.gitignore`-d entirely and built upon deployment.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
