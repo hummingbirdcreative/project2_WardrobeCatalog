@@ -6,7 +6,7 @@ const itemSchema = new Schema(
     {
         name: { type: String, required: true },
         brand: String,
-        type: String, 
+        type: String,
         description: String,
         img: String,
         notes: String,
