@@ -123,5 +123,6 @@ Here are a few of the views as a login-in user.
 - add MONGO_URL=YourMongoDBConnectionString to .env to set the database connection string
 - nodemon to start the server
 - compile + watch styles by running `npm run styles`
+  - _Never edit `./public/styles.css` directly. This file is generated using tailwind. In a production environment, it would be `.gitignore`-d entirely and built upon deployment.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
