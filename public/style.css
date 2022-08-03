@@ -1,15 +1,15 @@
 * {
-  font-family: 'Covered By Your Grace', cursive;
-font-family: 'Open Sans', sans-serif;
-font-family: 'Ubuntu', sans-serif;
+  font-family: "Covered By Your Grace", cursive;
+  font-family: "Open Sans", sans-serif;
+  font-family: "Ubuntu", sans-serif;
 }
 
 .divider:after,
 .divider:before {
-content: "";
-flex: 1;
-height: 1px;
-background: #eee;
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #eee;
 }
 
 .margined {
