@@ -17,7 +17,6 @@ router.use(function (req, res, next) {
 });
 
 //Index route-list all items
-//Do you want user homepage to just show user wardrobe items???
 router.get('/', (req, res) => {
     Item.find({}, (err, items) => {
         res.render('./items/index.ejs', { 
@@ -43,7 +42,6 @@ router.get('/filtered', (req, res) => {
 //favorite route
 router.get('/favorites', (req, res) => {
     User.findById(req.session.user, (err, user) => {
-        //const isCurrentlyFavorited = req.params.itemIsFavorite === 'true'
         Item.find({ user: req.session.user, itemIsFavorite: true}, (err, items) => {
             res.render('./items/index.ejs', { 
                 items, 
@@ -75,7 +73,6 @@ router.put('/:id', (req,res) => {
         res.redirect(`/items/${req.params.id}`)
     });
 });
-
 
 //Create Route
 router.post('/' , (req,res) => {

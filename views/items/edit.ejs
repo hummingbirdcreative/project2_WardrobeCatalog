@@ -6,7 +6,7 @@
         <div class="row gx-4 gx-lg-5 align-items-center">
           <div class="col-sm-6 px-0 d-none d-sm-block">
             <img src="<%= foundItem.img %>"
-              alt="New Clothes" class="w-100 vh-100" style="object-fit: cover; object-position: left;">
+              alt="<%= item.name %> picture" class="w-100 vh-100" style="object-fit: contain; object-position: left;">
           </div>
             <div class="col-md-6">
     
@@ -45,7 +45,7 @@
                 <input id="itemIsFavorite" type="checkbox" name="itemIsFavorite" <% if(foundItem.itemIsFavorite){ %> checked <% } %>>
                 
                 <div class="pt-1 mb-2">
-                  <input class="btn btn-outline-dark mt-auto" type="submit" name="edit" value="Edit Item">
+                  <input class="btn btn-outline-dark mt-auto" type="submit" name="" value="Edit Item">
                 </div>
                 
                 <a href="/items/filtered" style="color: #393f81;">Go Back</a>
