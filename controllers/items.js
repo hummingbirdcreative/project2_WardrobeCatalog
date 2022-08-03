@@ -82,8 +82,13 @@ router.put("/:id", (req, res) => {
 
 //Create Route
 router.post("/", (req, res) => {
+  req.body.itemIsFavorite = !!req.body.itemIsFavorite;
   req.body.user = req.session.user;
   Item.create(req.body, (err, createdItem) => {
+    if(err) {
+      console.log(err)
+    }
+    console.log(createdItem)
     res.redirect("/items/filtered");
   });
 });
