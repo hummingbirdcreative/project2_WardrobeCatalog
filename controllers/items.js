@@ -33,7 +33,8 @@ router.get('/filtered', (req, res) => {
         Item.find({ user: req.session.user }, (err, items) => {
             res.render('./items/index.ejs', { 
                 items, 
-                name: `${user.name}` 
+                name: `${user.name}`,
+                user: req.session.user
             });
         });
     });
@@ -45,7 +46,8 @@ router.get('/favorites', (req, res) => {
         Item.find({ user: req.session.user, itemIsFavorite: true}, (err, items) => {
             res.render('./items/index.ejs', { 
                 items, 
-                name: `${user.name}` 
+                name: `${user.name}`,
+                user: req.session.user
             });
         });
     });
@@ -54,7 +56,9 @@ router.get('/favorites', (req, res) => {
 
 //New Route
 router.get('/new', (req, res) => {
-    res.render('./items/new.ejs')
+    res.render('./items/new.ejs', {
+        user: req.session.user
+    });
 });
 
 //Delete Route
@@ -88,6 +92,7 @@ router.get('/:id/edit' , (req,res) => {
     Item.findById(req.params.id, (err, foundItem)=> {
           res.render('./items/edit.ejs' , {
               foundItem,
+              user: req.session.user,
           });
         });
     });
